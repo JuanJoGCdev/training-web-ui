@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#" aria-label="Overview">Overview</a></li>
+          <li><a href="#" aria-label="Contacts">Contacts</a></li>
+          <li><a href="#" aria-label="Favorites">Favorites</a></li>
+          <li><button aria-label="Add new item">+ New</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="form">
+        
+
+        <form action="">
+          <input
+            type="text"
+            id="first-name"
+            name="first-name"
+            placeholder="First name"
+          />
+
+          <input
+            type="text"
+            id="last-name"
+            name="last-name"
+            placeholder="Last name"
+          />
+
+          <input type="email" id="email" name="email" placeholder="Email" />
+
+          <input type="checkbox" id="enable-favorite" name="enable-favorite" />
+          <label for="enable-favorite">Enable as favorite</label>
+
+          <button type="submit">Save</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
