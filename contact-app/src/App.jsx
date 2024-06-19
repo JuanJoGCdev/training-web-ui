@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import NavBar from './components/NavBarComponent'
 import FormComponent from './components/FormComponent'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
 const [formOpen, setFormOpen] = useState(false)
@@ -18,6 +19,7 @@ const [formOpen, setFormOpen] = useState(false)
 
       <FormComponent/>
       )}
+      <AppRoutes/>
       
     </>              
   )
