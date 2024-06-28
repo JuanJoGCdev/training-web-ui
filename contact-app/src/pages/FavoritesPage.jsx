@@ -1,12 +1,12 @@
-import React from "react";
-import CardContact from "../components/CardContactComponent";
-
+import React, { useState } from "react";
+import ContactFavorite from "../components/ContactFavorite";
+import Pagination from "../components/Pagination";
+import { useSelector } from "react-redux";
 
 const FavoritesPage = () => {
-  const icons = [
+  const totalPagesFavorite = useSelector(state => state.contact.totalPagesFavorite)
 
-    { name: "x", color: "#CF6679", text: "Remove"},
-  ];
+  const [page, setPage] = useState(1);
 
   return (
     <>
@@ -15,12 +15,10 @@ const FavoritesPage = () => {
         <hr className=" h-0.5   flex-grow border-0 rounded bg-c1d72d" />
       </div>
       <section className="flex flex-wrap justify-start  items-center m-10">
-        <CardContact favorite={true} icons={icons} />
-        <CardContact favorite={true} icons={icons} />
-        <CardContact favorite={true} icons={icons} />
-        <CardContact favorite={true} icons={icons} />
-        <CardContact favorite={true} icons={icons} />
-        <CardContact favorite={true} icons={icons} />
+      <ContactFavorite page={page}/>
+      </section>
+      <section className='flex items-center justify-end'>
+        <Pagination page={page} setPage={setPage} totalPages={totalPagesFavorite}/>
       </section>
     </>
   );
