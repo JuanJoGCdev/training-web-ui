@@ -9,7 +9,7 @@ const AppRoutes = ({ loading, error }) => {
   return (
     <Routes>
       {/* Route for the overview page */}
-      <Route path="/overview" element={<OverviewPage loading={loading} error={error}/>} />
+      <Route path="/" element={<OverviewPage loading={loading} error={error}/>} />
       {/* Route for the favorites page */}
       <Route path="/favorites" element={<FavoritesPage loading={loading} error={error}/>} />
       {/* Route for the contacts page */}

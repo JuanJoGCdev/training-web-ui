@@ -35,17 +35,21 @@ const ContactFavorite = ({ page = 1, setPage }) => {
 
   return (
     <div className={style.contactFavoriteContainer}>
-      {currentContacts.map(contact => (
-        <CardContact
-          key={contact.id}
-          name={`${contact.first_name} ${contact.last_name}`}
-          email={contact.email}
-          imgUrl={contact.avatar}
-          favorite={contact.favorite}
-          onToggleFavorite={() => handleToggleFavorite(contact.id)}
-          styleFavorite={true}
-        />
-      ))}
+      {currentContacts.length > 0 ? (
+        currentContacts.map(contact => (
+          <CardContact
+            key={contact.id}
+            name={`${contact.first_name} ${contact.last_name}`}
+            email={contact.email}
+            imgUrl={contact.avatar}
+            favorite={contact.favorite}
+            onToggleFavorite={() => handleToggleFavorite(contact.id)}
+            styleFavorite={true}
+          />
+        ))
+      ) : (
+        <p className={style.noFavoritesMessage}>You don't have a favorite contact</p>
+      )}
     </div>
   );
 };
