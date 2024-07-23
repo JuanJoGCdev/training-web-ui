@@ -21,7 +21,6 @@ const useFetch = () => {
         const result = await fetchData(`/users?page=${page}`);
         if (result.total_pages) {
           totalPagesResult = result.total_pages;
-          console.log(totalPagesResult)
         }
         const contactsWithFavorites = result.data.map(contact => ({
           ...contact,

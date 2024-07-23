@@ -1,30 +1,115 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addContact } from "../redux/reducers/contactReducer";
+import style from "./styles/Form.module.css";
+
+const generateProfileImageUrl = (seed) => {
+  return `https://robohash.org/${seed}.png`;
+};
+
+const generateId = () => {
+  return Date.now().toString(35) + Math.random().toString(36).slice(2);
+};
 
 const FormComponent = () => {
-   
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    favorite: false,
+  });
 
-    return (
-        <section className='flex items-center justify-center'>
-            <article className='bg-c1d72d py-12 px-24'>
-                <form className="max-w-sm mx-auto grid place-items-center">
-                    <fieldset className="mb-3">
-                        <input type="text" id="first_name" className="shadow-sm bg-white bg-opacity-45 border-b border-gray-50  placeholder-black placeholder-opacity-70  w-72 h-14 p-4" placeholder="First Name" required />
-                    </fieldset>
-                    <fieldset className="mb-3">
-                        <input type="text" id="last-name" className="shadow-sm bg-white bg-opacity-45 border-b border-gray-50  placeholder-black placeholder-opacity-70 w-72 h-14 p-4" placeholder='Last Name' required />
-                    </fieldset>
-                    <fieldset className="mb-3">
-                        <input type="email" id="email" className="shadow-sm bg-white bg-opacity-45 border-b border-gray-50  placeholder-black placeholder-opacity-70 w-72 h-14 p-4" placeholder='Email' required />
-                    </fieldset>
-                    <div className="grid grid-cols-3 gap-2 mb-5">
-                        <label htmlFor="terms" className="col-start-1 col-end-3 ms-2 text-sm font-medium flex-grow">Enable like favorite</label>
-                        <input type="checkbox" id="checkbox" className=" col-end-13 col-span-1 form-checkbox w-8 h-4 accent-transparent opacity-65 rounded-md flex-shrink" />
-                    </div>
-                    <button type="submit" className="bg-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 text-center">Save</button>
-                </form>
-            </article>
-        </section>
-    );
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [id]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newContact = {
+        ...formData,
+        id: generateId(),
+        avatar: generateProfileImageUrl(formData.first_name + formData.last_name),
+      };
+      await dispatch(addContact(newContact));
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        favorite: false,
+      });
+    } catch (error) {
+      // console.log("error:", error);
+    }
+  };
+
+  return (
+    <section className={style.form}>
+      <article className={style.formContainer}>
+        <form onSubmit={handleSubmit}>
+          <section className={style.section}>
+            <input
+              type="text"
+              id="first_name"
+              className={style.input}
+              placeholder="First Name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
+          </section>
+
+          <section className={style.section}>
+            <input
+              type="text"
+              id="last_name"
+              className={style.input}
+              placeholder="Last Name"
+              value={formData.last_name}
+              onChange={handleChange}
+              required
+            />
+          </section>
+
+          <section className={style.section}>
+            <input
+              type="text"
+              id="email"
+              className={style.input}
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </section>
+
+          <div className={style.checkboxContainer}>
+            <label htmlFor="favorite" className={style.checkboxLabel}>
+              Enable like favorite
+            </label>
+            <input
+              type="checkbox"
+              id="favorite"
+              className={style.checkbox}
+              checked={formData.favorite}
+              onChange={handleChange}
+              
+            />
+          </div>
+          <div className={style.buttonContainer}>
+            <button type="submit" className={style.button}>
+              Save
+            </button>
+          </div>
+        </form>
+      </article>
+    </section>
+  );
 };
 
 export default FormComponent;

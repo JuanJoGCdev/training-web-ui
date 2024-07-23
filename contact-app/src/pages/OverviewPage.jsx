@@ -1,39 +1,37 @@
-import React from 'react'
+import React from 'react';
 import ContactList from '../components/ContactList';
 import ContactFavorite from '../components/ContactFavorite';
-
+import styles from './styles/Overview.module.css';
 
 const OverviewPage = ({ loading, error }) => {
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
-    if (loading) {
-        return <div>Cargando...</div>;
-      }
-    
-      if (error) {
-        return <div>Error al cargar los contactos</div>;
-      }
-    
+  if (error) {
+    return <div>Error al cargar los contactos</div>;
+  }
 
-    return (
-        <>
-            <div className='m-10 flex items-center space-x-4'>
-                <h1 className='text-xl'>Favorites</h1>
-                <hr className=' h-0.5 flex-grow border-0 rounded bg-c1d72d' />
-            </div>  <section>
-                <ContactFavorite />
-            </section>
+  return (
+    <>
+      <div className={styles.container}>
+        <span className={styles.title}>Favorites</span>
+        <hr className={styles.divider} />
+      </div>
+      <section>
+        <ContactFavorite />
+      </section>
 
-            <div className='m-10 flex items-center space-x-4'>
-                <h1 className='text-xl'>Contacts</h1>
-                <hr className=' h-0.5 flex-grow border-0 rounded bg-c1d72d' />
-            </div>
+      <div className={styles.container}>
+        <span className={styles.title}>Contacts</span>
+        <hr className={styles.divider} />
+      </div>
 
-            <section>
-                <ContactList />
-            </section>
-        </>
-
-    )
+      <section>
+        <ContactList />
+      </section>
+    </>
+  );
 }
 
-export default OverviewPage
+export default OverviewPage;

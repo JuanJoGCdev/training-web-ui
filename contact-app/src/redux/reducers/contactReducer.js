@@ -1,26 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Initial state
 const initialState = {
   contacts: [],
   totalPages: 0,
   totalPagesFavorite: 1,
 };
 
+// Slice
 const contactSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
     addContact: (state, action) => {
-      const prevContacts = state.contacts;
-      const newContacts = action.payload;
-      
-      // Filtrar los nuevos contactos para eliminar los duplicados
-      const filteredNewContacts = newContacts.filter(newContact => {
-        return !prevContacts.some(prevContact => prevContact.id === newContact.id);
+      const newContacts = Array.isArray(action.payload) ? action.payload : [action.payload];
+      newContacts.forEach(newContact => {
+        const exists = state.contacts.some(contact => contact.id === newContact.id);
+        if (!exists) {
+          state.contacts.push(newContact);
+        }
       });
-
-      // Actualizar el estado con los contactos filtrados
-      state.contacts = [...prevContacts, ...filteredNewContacts];
     },
     toggleFavorite: (state, action) => {
       const id = action.payload;
@@ -32,25 +31,30 @@ const contactSlice = createSlice({
     deleteContact: (state, action) => {
       const id = action.payload;
       state.contacts = state.contacts.filter(c => c.id !== id);
-    
     },
     setTotalPages: (state, action) => {
       state.totalPages = action.payload;
-      
     },
     calculateTotalPages: (state) => {
-      const cant = state.contacts;
-      const cantPage = Math.ceil(cant.length / 8); 
-      cantPage > 0 ? state.totalPages = cantPage : state.totalPages = 1
+      const cant = state.contacts.length;
+      const cantPage = Math.ceil(cant / 8);
+      state.totalPages = cantPage > 0 ? cantPage : 1;
     },
     calculateTotalPagesFavorites: (state) => {
-      const cantFavorite = state.contacts.filter(fav => fav.favorite === true);
-      const cantPageFavorite = Math.ceil(cantFavorite.length / 8); // Calcula el número de páginas de favoritos según los contactos favoritos
-      cantPageFavorite > 0 ? state.totalPagesFavorite = cantPageFavorite : state.totalPagesFavorite = 1
+      const cantFavorite = state.contacts.filter(fav => fav.favorite).length;
+      const cantPageFavorite = Math.ceil(cantFavorite / 8);
+      state.totalPagesFavorite = cantPageFavorite > 0 ? cantPageFavorite : 1;
     }
   },
 });
 
-export const { addContact, toggleFavorite, deleteContact, setTotalPages, calculateTotalPagesFavorites, calculateTotalPages } = contactSlice.actions;
+export const {
+  addContact,
+  toggleFavorite,
+  deleteContact,
+  setTotalPages,
+  calculateTotalPagesFavorites,
+  calculateTotalPages
+} = contactSlice.actions;
 
 export default contactSlice.reducer;

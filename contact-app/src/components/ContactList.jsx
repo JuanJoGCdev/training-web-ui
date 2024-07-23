@@ -2,31 +2,35 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CardContact from './CardContactComponent';
 import { toggleFavorite, deleteContact, calculateTotalPagesFavorites, calculateTotalPages } from '../redux/reducers/contactReducer';
+import style from './styles/ContactList.module.css'
 
-
-const ContactList = ({ page }) => {
-  
+const ContactList = ({ page, setPage }) => {
   const contacts = useSelector((state) => state.contact.contacts);
+
   const dispatch = useDispatch();
 
   const handleToggleFavorite = (id) => {
     dispatch(toggleFavorite(id));
-    dispatch(calculateTotalPagesFavorites())
+    dispatch(calculateTotalPagesFavorites());
   };
 
   const handleDelete = (id) => {
     dispatch(deleteContact(id));
-    dispatch(calculateTotalPages())
+    dispatch(calculateTotalPages());
 
-    
-   
-
+    // Verificar si la página actual no tiene contactos después de eliminar
+    const updatedContacts = contacts.filter(contact => contact.id !== id);
+    const contactsPerPage = 8;
+    const startIndex = (page - 1) * contactsPerPage;
+    if (updatedContacts.slice(startIndex, startIndex + contactsPerPage).length === 0 && page > 1) {
+      setPage(page - 1);
+    }
   };
 
   const contactsPerPage = 8;
   const startIndex = (page - 1) * contactsPerPage;
   const endIndex = startIndex + contactsPerPage;
-  
+
   let currentContacts;
 
   if (page == null) {
@@ -36,7 +40,7 @@ const ContactList = ({ page }) => {
   }
 
   return (
-    <div className='flex flex-wrap justify-center space-x-4'>
+    <div className={style.contactListContainer}>
       {currentContacts.map(contact => (
         <CardContact
           key={contact.id} 

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ContactList from '../components/ContactList';
 import Pagination from '../components/Pagination';
 import { useSelector } from 'react-redux';
-
+import style from './styles/Contacts.module.css'
 
 const ContactsPage = ({ loading, error }) => {
-  const totalPages = useSelector(state => state.contact.totalPages)
+  const totalPages = useSelector(state => state.contact.totalPages);
   const [page, setPage] = useState(1);
 
   if (loading) {
@@ -18,14 +18,14 @@ const ContactsPage = ({ loading, error }) => {
 
   return (
     <>
-      <div className="m-10 mx-14 flex items-center space-x-4">
-        <h1 className="text-xl">Contacts List</h1>
-        <hr className="h-0.5 flex-grow border-0 rounded bg-c1d72d" />
+      <div className={style.contactListContainer}>
+        <span className={style.contactListTitle}>Contacts List</span>
+        <hr className={style.contactListLine} />
       </div>
-      <section className="flex flex-wrap justify-start items-center m-10">
-        <ContactList page={page} />
+      <section className={style.contactList}>
+        <ContactList page={page} setPage={setPage} />
       </section>
-      <section className='flex items-center justify-end'>
+      <section className={style.contactListPagination}>
         <Pagination page={page} setPage={setPage} totalPages={totalPages}/>
       </section>
     </>

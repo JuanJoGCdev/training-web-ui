@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import style from './styles/NavBar.module.css'
 
 const NavBar = ({ toggleForm, formOpen }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,25 +15,24 @@ const [activeLink, setActiveLink] = useState("")
   
 
   return (
-    <nav className=" bg-white  shadow-xl">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className={style.navbar}>
+      <div className={style.navbarContainer}>
         <NavLink
           to="/overview"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+          className={style.navbarLogo}
         >
-          <img src="./logo-globant.png" className="h-8" alt="Logo" />
+          <img src="./logo-globant.png" alt="Logo" />
         </NavLink>
         <button
           data-collapse-toggle="navbar-solid-bg"
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 :text-gray-400"
+          className={style.navbarToggle}
           aria-controls="navbar-solid-bg"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className="sr-only">Open main menu</span>
           <svg
-            className="w-5 h-5"
+           
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -51,16 +51,16 @@ const [activeLink, setActiveLink] = useState("")
 
         
         <section
-          className={`w-full md:block md:w-auto ${
-            menuOpen ? "block" : "hidden "
+          className={`${style.navbarMenu}  ${
+            menuOpen ? style.navbarMenuOpen : style.navbarMenuClosed
           }`}
           id="navbar-solid-bg"
         >
-          <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+          <ul className={style.navbarMenu}>
             <li>
               <NavLink
                 to="/overview"
-                className={`block ${activeLink === '/overview' ? 'text-c1d72d' : "text-gray-900 "} py-4 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-c1d72d`}
+                className={`${style.navbarItem} ${activeLink === '/overview' ? style.navbarItemActive : style.navbarItemDisnabled } `}
                 aria-current="page"
               >
                 Overview
@@ -69,7 +69,7 @@ const [activeLink, setActiveLink] = useState("")
             <li>
               <NavLink
                 to="/contacts"
-                className={`block ${activeLink === '/contacts' ? 'text-c1d72d' : "text-gray-900 "} py-4 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-c1d72d`}
+                className={`${style.navbarItem}  ${activeLink === '/contacts' ? style.navbarItemActive : style.navbarItemDisnabled } `}
               >
                 Contacts
               </NavLink>
@@ -77,16 +77,16 @@ const [activeLink, setActiveLink] = useState("")
             <li>
               <NavLink
                 to="/favorites"
-                className={`block ${activeLink === '/favorites' ? 'text-c1d72d' : "text-gray-900 "} py-4 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-c1d72d`}
+                className={`${style.navbarItem}  ${activeLink === '/favorites' ? style.navbarItemActive : style.navbarItemDisnabled } `}
               >
                 Favorites
               </NavLink>
             </li>
             <li>
-              <a className="block py-4 px-3 md:p-0 text-gray-900 rounded md:hover:bg-transparent  md:border-0 md:hover:text-c1d72d">
+              <a className={style.navbarItem}>
                 <button
                   onClick={toggleForm}
-                  className="bg-c1d72d h-7 w-20 shadow-xl hover:bg-white hover:text-c1d72d hover:border-2 hover:border-c1d72d transition duration-300 rounded"
+                  className={style.navbarButton}
                 >
                   {!formOpen ? "+ New" : "Close"}
                 </button>

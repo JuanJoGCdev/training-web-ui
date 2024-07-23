@@ -1,5 +1,5 @@
 import React from 'react';
-
+import style from './styles/Pagination.module.css'
 
 const Pagination = ({ page,setPage, totalPages}) => {
 
@@ -18,20 +18,20 @@ const Pagination = ({ page,setPage, totalPages}) => {
   };
 
   return (
-    <div className="flex items-center gap-8 m-2">
-      <p className="mr-12 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-        <strong className="text-gray-900">{page}</strong> de <strong className="text-gray-900">{totalPages}</strong>
+    <div className={style.paginationContainer}>
+      <p className={style.paginationText}>
+        <strong className={style.paginationNumber}>{page}</strong> de <strong className={style.paginationNumber}>{totalPages}</strong>
       </p>
       <a
         onClick={handlePrevPage}
-        className="relative rounded-lg cursor-pointer"
+        className={style.paginationArrows}
         type="button"
       >
         <i className="fa-solid fa-angle-left"></i>
       </a>
       <a
         onClick={handleNextPage}
-        className="relative rounded-lg cursor-pointer"
+        className={style.paginationArrows}
         type="button"
       >
         <i className="fa-solid fa-angle-right"></i>
