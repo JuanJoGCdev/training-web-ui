@@ -1,16 +1,16 @@
-// src/components/ContactFavorite.stories.jsx
 import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { combineReducers } from "redux";
-import contactReducer from "../redux/reducers/contactReducer"; // Ajusta la ruta según sea necesario
+import contactReducer from "../redux/reducers/contactReducer"; 
 import ContactFavorite from "./ContactFavorite";
 
-// Configuración básica del store para Storybook
+// Basic store setup for Storybook
 const rootReducer = combineReducers({
-  contact: contactReducer,
+  contact: contactReducer, // Combine the contact reducer with other reducers if needed
 });
 
+// Create the Redux store with initial state
 const store = createStore(rootReducer, {
   contact: {
     contacts: [
@@ -31,15 +31,17 @@ const store = createStore(rootReducer, {
         favorite: true,
       },
     ],
-    totalPagesFavorite: 1,
+    totalPagesFavorite: 1, // Initial state for pagination
   },
 });
 
+// Export Storybook metadata for ContactFavorite component
 export default {
-  title: "Components/ContactFavorite",
-  component: ContactFavorite,
+  title: "Components/ContactFavorite", // Title in Storybook sidebar
+  component: ContactFavorite, // Component being documented
   decorators: [
     (Story) => (
+      // Wrap the story in a Redux Provider with the configured store
       <Provider store={store}>
         <Story />
       </Provider>
@@ -47,10 +49,12 @@ export default {
   ],
 };
 
+// Template for creating stories with state management
 const Template = (args) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // Manage local page state for pagination
   return <ContactFavorite {...args} page={page} setPage={setPage} />;
 };
 
+// Default story example with initial arguments
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {}; // No additional arguments for default story

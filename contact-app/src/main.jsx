@@ -6,10 +6,14 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
+// Create the root element for the React application
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    {/* Provide the Redux store to the React application */}
     <Provider store={store}>
+      {/* Set up routing for the application */}
       <BrowserRouter>
+        {/* Render the main App component */}
         <App />
       </BrowserRouter>
     </Provider>

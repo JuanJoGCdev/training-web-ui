@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { addContact } from "../redux/reducers/contactReducer";
 import style from "./styles/Form.module.css";
 
+// Generate a profile image URL based on a seed
 const generateProfileImageUrl = (seed) => {
   return `https://robohash.org/${seed}.png`;
 };
 
+// Generate a unique ID for a new contact
 const generateId = () => {
   return Date.now().toString(35) + Math.random().toString(36).slice(2);
 };
@@ -19,15 +21,18 @@ const FormComponent = () => {
     email: "",
     favorite: false,
   });
+  const [error, setError] = useState(null); // State for error handling
 
+  // Handle input changes for the form
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [id]: type === "checkbox" ? checked : value,
+      [id]: type === "checkbox" ? checked : value, // Handle checkbox separately
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,20 +41,23 @@ const FormComponent = () => {
         id: generateId(),
         avatar: generateProfileImageUrl(formData.first_name + formData.last_name),
       };
-      await dispatch(addContact(newContact));
+      await dispatch(addContact(newContact)); // Dispatch action to add contact
       setFormData({
         first_name: "",
         last_name: "",
         email: "",
         favorite: false,
       });
+      setError(null); // Clear error on successful submission
     } catch (error) {
-      // console.log("error:", error);
+      setError("Failed to add contact. Please try again."); // Set error message on failure
     }
   };
 
   return (
     <section className={style.form}>
+      {error && <div className={style.error}>{error}</div>} {/* Display error if present */}
+
       <article className={style.formContainer}>
         <form onSubmit={handleSubmit}>
           <section className={style.section}>
@@ -98,7 +106,6 @@ const FormComponent = () => {
               className={style.checkbox}
               checked={formData.favorite}
               onChange={handleChange}
-              
             />
           </div>
           <div className={style.buttonContainer}>

@@ -9,7 +9,9 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
@@ -36,6 +38,8 @@
     "@storybook/react": "^8.2.5",
     "@storybook/react-vite": "^8.2.5",
     "@storybook/test": "^8.2.5",
+    "@testing-library/jest-dom": "^6.4.7",
+    "@testing-library/react": "^16.0.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@vite-pwa/assets-generator": "^0.2.4",
@@ -45,12 +49,14 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.6",
     "eslint-plugin-storybook": "^0.8.0",
+    "jsdom": "^24.1.1",
     "prop-types": "15.8.1",
     "react-router-dom": "^6.23.1",
     "sharp": "^0.33.4",
     "sharp-ico": "^0.1.5",
     "vite": "^5.2.10",
     "vite-plugin-pwa": "^0.20.0",
+    "vitest": "^2.0.4",
     "workbox-core": "^7.1.0"
   },
   "resolutions": {

@@ -1,17 +1,17 @@
-// src/components/ContactList.stories.jsx
 import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { combineReducers } from "redux";
-import contactReducer from "../redux/reducers/contactReducer"; // Ajusta la ruta según sea necesario
+import contactReducer from "../redux/reducers/contactReducer"; 
 import ContactList from "./ContactList";
 import CardContact from "./CardContactComponent";
 
-// Configuración básica del store para Storybook
+// Basic store setup for Storybook with initial state
 const rootReducer = combineReducers({
-  contact: contactReducer,
+  contact: contactReducer, // Combines the contactReducer into the root reducer
 });
 
+// Create Redux store with an initial state for contacts
 const store = createStore(rootReducer, {
   contact: {
     contacts: [
@@ -21,7 +21,7 @@ const store = createStore(rootReducer, {
         last_name: "Doe",
         email: "john.doe@example.com",
         avatar: "https://robohash.org/johndoe.png",
-        favorite: true,
+        favorite: true, // Indicates this contact is a favorite
       },
       {
         id: "2",
@@ -29,19 +29,20 @@ const store = createStore(rootReducer, {
         last_name: "Doe",
         email: "jane.doe@example.com",
         avatar: "https://robohash.org/janedoe.png",
-        favorite: false,
+        favorite: false, // Indicates this contact is not a favorite
       },
-      // Agrega más contactos de ejemplo si es necesario
     ],
-    totalPagesFavorite: 1,
+    totalPagesFavorite: 1, // Initial value for the total number of pages for favorite contacts
   },
 });
 
+// Storybook metadata for the ContactList component
 export default {
-  title: "Components/ContactList",
-  component: ContactList,
+  title: "Components/ContactList", // Title for the component in Storybook sidebar
+  component: ContactList, // Component being documented
   decorators: [
     (Story) => (
+      // Wrap story in Redux Provider to supply the store context to the component
       <Provider store={store}>
         <Story />
       </Provider>
@@ -49,12 +50,12 @@ export default {
   ],
 };
 
+// Template function to manage component state in Storybook
 const Template = (args) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // Local state for managing pagination
   return <ContactList {...args} page={page} setPage={setPage} />;
 };
 
+// Default story showcasing the ContactList component
 export const Default = Template.bind({});
-Default.args = {
-  // Aquí puedes añadir props predeterminadas si es necesario
-};
+Default.args = {}; // Default arguments for the ContactList story

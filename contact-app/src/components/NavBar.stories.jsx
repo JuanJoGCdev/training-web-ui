@@ -1,14 +1,14 @@
-// src/components/NavBar.stories.jsx
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import NavBar from './NavBarComponent';
 
-// Exporta la configuración de la historia
+// Story configuration for the NavBar component
 export default {
   title: 'Components/NavBar',
   component: NavBar,
   decorators: [
     (Story) => (
+      // MemoryRouter is used to simulate the router context
       <MemoryRouter initialEntries={['/']}>
         <Story />
       </MemoryRouter>
@@ -16,18 +16,19 @@ export default {
   ],
 };
 
-// Define una plantilla para el componente
+// Base template to create variations of the NavBar component
 const Template = (args) => <NavBar {...args} />;
 
-// Define diferentes variaciones del componente
+// Default story of the NavBar
 export const Default = Template.bind({});
 Default.args = {
-  toggleForm: () => {},
-  formOpen: false,
+  toggleForm: () => {}, // Placeholder for the form toggle function
+  formOpen: false, // Initial state of the form (closed)
 };
 
+// Story of the NavBar with the form open
 export const FormOpen = Template.bind({});
 FormOpen.args = {
-  toggleForm: () => {},
-  formOpen: true,
+  toggleForm: () => {}, // Placeholder for the form toggle function
+  formOpen: true, // Initial state of the form (open)
 };
